@@ -53,3 +53,15 @@ const weather = [
     }
 ]
 
+//resolver --- how to fetch data
+
+const resolvers = {
+    Query: {
+        weather: async (_source, __, { dataSources }) => {
+            return dataSources.weatherAPI.getWeather(weather.postalCode)
+                .then(response => {
+                    return [ {city: response.name, conditions: response.weather[0].main, description: response.weather[0].description, temperature: response.main.temp, feels_like: response.main.feels_like, temp_hi: response.main.temp_max, temp_low: response.main.temp_min, humidity: response.main.humidity, wind_speed: response.wind.speed} ];
+                })
+        }
+    },
+}
