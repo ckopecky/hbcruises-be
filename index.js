@@ -20,3 +20,27 @@ class WeatherAPI extends RESTDataSource {
 
 
 
+//type definitions/schema
+
+const typeDefs = gql`
+    # Comments in GraphQL strings start with a hash symbol
+
+    type Weather {
+        city: String
+        temperature: String
+        conditions: String
+        description: String
+        feels_like: String
+        temp_hi: String
+        temp_low: String
+        humidity: String
+        wind_speed: String
+    }
+
+    # Query type lists all available queries that clients can execute, along with the return type for each.
+
+    type Query {
+        weather: [Weather]
+    }
+
+`
