@@ -44,3 +44,12 @@ const typeDefs = gql`
     }
 
 `
+//sample dataset
+const weather = [
+    {
+        city: "San Jose",
+        temperature: "68°",
+        conditions: "Partly Cloudy"
+    }
+]
+
