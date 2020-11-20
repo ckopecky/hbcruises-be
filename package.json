@@ -1,0 +1,21 @@
+{
+  "name": "hbcruises-be",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ckopecky/hbcruises-be.git",
+  "author": "\"ckopecky\" <kopecky12112@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "apollo-datasource-rest": "^0.9.5",
+    "apollo-server": "^2.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
