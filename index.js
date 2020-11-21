@@ -43,18 +43,10 @@ const typeDefs = gql`
     # Query type lists all available queries that clients can execute, along with the return type for each.
 
     type Query {
-        weather: [Weather]
+        weather(zip: String): [Weather]
     }
 
-`
-//sample dataset
-const weather = [
-    {
-        city: "San Jose",
-        temperature: "68°",
-        conditions: "Partly Cloudy"
-    }
-]
+`;
 
 //resolver --- how to fetch data
 
