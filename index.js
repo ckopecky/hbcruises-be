@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-
 const { ApolloServer, gql } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
 
@@ -20,8 +19,6 @@ class WeatherAPI extends RESTDataSource {
 		return response;
 	}
 }
-
-
 
 //type definitions/schema
 
@@ -84,8 +81,6 @@ const resolvers = {
 //create instance of apollo server
 
 const server = new ApolloServer({
-	typeDefs,
-    typeDefs, 
 	typeDefs,
 	resolvers,
 	dataSources: () => {
