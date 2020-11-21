@@ -80,14 +80,17 @@ const resolvers = {
 
 //create instance of apollo server
 
-const server = new ApolloServer({ 
+const server = new ApolloServer({
+	typeDefs,
     typeDefs, 
-    resolvers,
-    dataSources: () => {
-        return {
-            weatherAPI: new WeatherAPI()
-        }
-    }
+	typeDefs,
+	resolvers,
+	dataSources: () => {
+		return {
+			weatherAPI: new WeatherAPI(),
+		};
+	},
+	cors: true,
 });
 
 server.listen().then(() => {
