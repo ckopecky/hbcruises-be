@@ -35,6 +35,9 @@ const typeDefs = gql`
         temp_low: String
         humidity: String
         wind_speed: String
+        error: Boolean
+        message: String
+        zip: String
     }
 
     # Query type lists all available queries that clients can execute, along with the return type for each.
