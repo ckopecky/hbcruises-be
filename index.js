@@ -15,8 +15,11 @@ class WeatherAPI extends RESTDataSource {
 		console.log('get', postalCode.zip);
 		let response = await this.get(
 			`weather?zip=${postalCode.zip}&units=imperial&appid=${process.env.API_KEY}`
-		);
-		return response;
+        );
+        if(response) {
+            return response;
+        }
+		return null;
 	}
 }
 
@@ -38,6 +41,11 @@ const typeDefs = gql`
         error: Boolean
         message: String
         zip: String
+        lat: String
+        lon: String
+        cloud_cover: String
+        id: String
+        icon: String
     }
 
     # Query type lists all available queries that clients can execute, along with the return type for each.
@@ -53,11 +61,11 @@ const typeDefs = gql`
 const resolvers = {
 	Query: {
 		weather: async (_, zip, { dataSources }) => {
-			return dataSources.weatherAPI
-				.getWeather(zip)
-				.then((response) => {
-                    console.log(zip, response);
-					return [
+			let response = await dataSources.weatherAPI
+                .getWeather(zip);
+                if(response) {
+                    console.log(response)
+                    return [
 						{
 							city: response.name,
 							conditions: response.weather[0].main,
@@ -67,13 +75,17 @@ const resolvers = {
 							temp_hi: response.main.temp_max,
 							temp_low: response.main.temp_min,
 							humidity: response.main.humidity,
-							wind_speed: response.wind.speed,
+                            wind_speed: response.wind.speed,
+                            lat: response.coord.lat,
+                            lon: response.coord.lon,
+                            cloud_cover: response.clouds.all,
+                            id: response.id,
+                            icon: response.weather[0].icon
 						},
 					];
-				})
-				.catch((err) => {
-					return [{ error: true, message: err.message }];
-				});
+                } else {
+                    return [{ error: true, message: err.message }];
+                }	
 		},
 	},
 };
