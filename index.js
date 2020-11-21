@@ -51,15 +51,32 @@ const typeDefs = gql`
 //resolver --- how to fetch data
 
 const resolvers = {
-    Query: {
-        weather: async (_source, __, { dataSources }) => {
-            return dataSources.weatherAPI.getWeather(weather.postalCode)
-                .then(response => {
-                    return [ {city: response.name, conditions: response.weather[0].main, description: response.weather[0].description, temperature: response.main.temp, feels_like: response.main.feels_like, temp_hi: response.main.temp_max, temp_low: response.main.temp_min, humidity: response.main.humidity, wind_speed: response.wind.speed} ];
-                })
-        }
-    },
-}
+	Query: {
+		weather: async (_, zip, { dataSources }) => {
+			return dataSources.weatherAPI
+				.getWeather(zip)
+				.then((response) => {
+                    console.log(zip, response);
+					return [
+						{
+							city: response.name,
+							conditions: response.weather[0].main,
+							description: response.weather[0].description,
+							temperature: response.main.temp,
+							feels_like: response.main.feels_like,
+							temp_hi: response.main.temp_max,
+							temp_low: response.main.temp_min,
+							humidity: response.main.humidity,
+							wind_speed: response.wind.speed,
+						},
+					];
+				})
+				.catch((err) => {
+					return [{ error: true, message: err.message }];
+				});
+		},
+	},
+};
 
 //create instance of apollo server
 
