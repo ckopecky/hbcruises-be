@@ -100,7 +100,9 @@ const server = new ApolloServer({
 			weatherAPI: new WeatherAPI(),
 		};
 	},
-	cors: true,
+    cors: {
+		origin: ["http://localhost:4000", "https://studio.apollographql.com"],			// allow request from prod and dev domains
+		credentials: true},
 });
 
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
