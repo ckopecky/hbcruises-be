@@ -61,30 +61,31 @@ const typeDefs = gql`
 const resolvers = {
 	Query: {
 		weather: async (_, zip, { dataSources }) => {
-			let response = await dataSources.weatherAPI
+            try {
+                let response = await dataSources.weatherAPI
                 .getWeather(zip);
-                if(response) {
                     console.log(response)
-                    return [
-						{
-							city: response.name,
-							conditions: response.weather[0].main,
-							description: response.weather[0].description,
-							temperature: response.main.temp,
-							feels_like: response.main.feels_like,
-							temp_hi: response.main.temp_max,
-							temp_low: response.main.temp_min,
-							humidity: response.main.humidity,
-                            wind_speed: response.wind.speed,
-                            lat: response.coord.lat,
-                            lon: response.coord.lon,
-                            cloud_cover: response.clouds.all,
-                            id: response.id,
-                            icon: response.weather[0].icon
-						},
-					];
-                } else {
-                    return [{ error: true, message: err.message }];
+                return [
+                    {
+                        city: response.name,
+                        conditions: response.weather[0].main,
+                        description: response.weather[0].description,
+                        temperature: response.main.temp,
+                        feels_like: response.main.feels_like,
+                        temp_hi: response.main.temp_max,
+                        temp_low: response.main.temp_min,
+                        humidity: response.main.humidity,
+                        wind_speed: response.wind.speed,
+                        lat: response.coord.lat,
+                        lon: response.coord.lon,
+                        cloud_cover: response.clouds.all,
+                        id: response.id,
+                        icon: response.weather[0].icon
+                    },
+				];
+            }
+			catch (error) {
+                    return [{ error: true, message: error.message }];
                 }	
 		},
 	},
