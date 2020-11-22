@@ -102,7 +102,7 @@ const server = new ApolloServer({
 		};
 	},
     cors: {
-		origin: [ "https://studio.apollographql.com", "https://weather-app-ck-fe.vercel.app/", "http://localhost:4000" ],		// allow request from prod and dev domains
+		origin: "*", //[ "https://studio.apollographql.com", "https://weather-app-ck-fe.vercel.app/", "http://localhost:4000" ],		// allow request from prod and dev domains
 		credentials: true},
 });
 
