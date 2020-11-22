@@ -16,10 +16,7 @@ class WeatherAPI extends RESTDataSource {
 		let response = await this.get(
 			`weather?zip=${postalCode.zip}&units=imperial&appid=${process.env.API_KEY}`
         );
-        if(response) {
-            return response;
-        }
-		return null;
+        return response;
 	}
 }
 
