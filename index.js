@@ -102,7 +102,7 @@ const server = new ApolloServer({
 		};
 	},
     cors: {
-		origin: ["http://localhost:4000", "https://studio.apollographql.com"],			// allow request from prod and dev domains
+		origin: "https://studio.apollographql.com",			// allow request from prod and dev domains
 		credentials: true},
 });
 
