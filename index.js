@@ -58,32 +58,34 @@ const typeDefs = gql`
 const resolvers = {
 	Query: {
 		weather: async (_, zip, { dataSources }) => {
-            try {
+
                 let response = await dataSources.weatherAPI
                 .getWeather(zip);
                     console.log(response)
-                return [
-                    {
-                        city: response.name,
-                        conditions: response.weather[0].main,
-                        description: response.weather[0].description,
-                        temperature: response.main.temp,
-                        feels_like: response.main.feels_like,
-                        temp_hi: response.main.temp_max,
-                        temp_low: response.main.temp_min,
-                        humidity: response.main.humidity,
-                        wind_speed: response.wind.speed,
-                        lat: response.coord.lat,
-                        lon: response.coord.lon,
-                        cloud_cover: response.clouds.all,
-                        id: response.id,
-                        icon: response.weather[0].icon
-                    },
-				];
-            }
-			catch (error) {
-                    return [{ error: true, message: error.message }];
-                }	
+                if(response) {
+                    return [
+                        {
+                            city: response.name,
+                            conditions: response.weather[0].main,
+                            description: response.weather[0].description,
+                            temperature: response.main.temp,
+                            feels_like: response.main.feels_like,
+                            temp_hi: response.main.temp_max,
+                            temp_low: response.main.temp_min,
+                            humidity: response.main.humidity,
+                            wind_speed: response.wind.speed,
+                            lat: response.coord.lat,
+                            lon: response.coord.lon,
+                            cloud_cover: response.clouds.all,
+                            id: response.id,
+                            icon: response.weather[0].icon,
+                            error: true,
+                            message: "zip code doesn't exist"
+                        },
+                    ];
+                } else {
+                    return [{ error: true, message: "Zip doesn't exist" }];
+                }
 		},
 	},
 };
